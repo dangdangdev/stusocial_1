@@ -1,6 +1,6 @@
 package com.stusocial.springboot.service;
 
-import com.stusocial.springboot.api.Request.CommentApi;
+import com.stusocial.springboot.dto.CommentDto;
 import com.stusocial.springboot.entity.Answer;
 import com.stusocial.springboot.entity.Comment;
 import com.stusocial.springboot.entity.Student;
@@ -24,10 +24,10 @@ public class CommentService {
     private AnswerReposity answerReposity;
 
 
-    public Comment addComment(CommentApi commentApi) {
-        String content = commentApi.getContent();
-        Student stu = studentRepository.findById(commentApi.getStudentId()).get();
-        Answer ans = answerReposity.findById(commentApi.getAnswerId()).get();
+    public Comment addComment(CommentDto commentDTO) {
+        String content = commentDTO.getContent();
+        Student stu = studentRepository.findById(commentDTO.getStudentId()).get();
+        Answer ans = answerReposity.findById(commentDTO.getAnswerId()).get();
         Comment comment = new Comment(content, stu, ans);
         ans.setCommentCount(ans.getCommentCount() + 1);
         answerReposity.save(ans);

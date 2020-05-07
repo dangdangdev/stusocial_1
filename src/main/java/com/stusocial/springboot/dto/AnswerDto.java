@@ -1,16 +1,16 @@
-package com.stusocial.springboot.api.Request;
+package com.stusocial.springboot.dto;
 
 import lombok.Data;
 
 @Data
-public class AnswerApi {
+public class AnswerDto {
     private String content;
     private Integer studentId;
     private Integer questionId;
 
 
 
-    public AnswerApi(String content, Integer studentId, Integer questionId) {
+    public AnswerDto(String content, Integer studentId, Integer questionId) {
         this.content = content;
         this.studentId = studentId;
         this.questionId = questionId;

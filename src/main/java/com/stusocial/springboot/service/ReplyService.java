@@ -1,6 +1,6 @@
 package com.stusocial.springboot.service;
 
-import com.stusocial.springboot.api.Request.ReplyApi;
+import com.stusocial.springboot.dto.ReplyDto;
 import com.stusocial.springboot.entity.Comment;
 import com.stusocial.springboot.entity.Reply;
 import com.stusocial.springboot.entity.Student;
@@ -28,12 +28,12 @@ public class ReplyService {
         return replyRepository.findByComment(comment);
     }
 
-    public Reply addReply(ReplyApi replyApi) {
-        Student student = studentRepository.findById(replyApi.getStudentId()).get();
-        Comment comment = commentRepository.findById(replyApi.getCommentId()).get();
+    public Reply addReply(ReplyDto replyDto) {
+        Student student = studentRepository.findById(replyDto.getStudentId()).get();
+        Comment comment = commentRepository.findById(replyDto.getCommentId()).get();
         comment.setReplyCount(comment.getReplyCount() + 1);
         commentRepository.save(comment);
-        Reply reply = new Reply(replyApi.getContent(), student, comment);
+        Reply reply = new Reply(replyDto.getContent(), student, comment);
         return replyRepository.save(reply);
     }
 }

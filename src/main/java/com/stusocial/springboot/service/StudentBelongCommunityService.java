@@ -35,13 +35,15 @@ public class StudentBelongCommunityService {
     }
 
     public String addStuBelongCom(Integer sid, Integer cid) {
-        if (this.getStuBelongCom(sid, cid) != null) {
-            return "fail";
-        }
         Student student = studentRepository.findById(sid).get();
         Community community = communityRepository.findById(cid).get();
+        if(studentBelongCommunityRepository.findByCommunityAndStudent(community, student)!=null){
+            return "fail";
+        }
         StudentBelongCommunity studentBelongCommunity = new StudentBelongCommunity(student, community, 1);
         studentBelongCommunityRepository.save(studentBelongCommunity);
+        community.setStudentCount(community.getStudentCount()+1);
+        communityRepository.save(community);
         return "success";
     }
 

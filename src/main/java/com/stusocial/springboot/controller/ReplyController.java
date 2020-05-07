@@ -1,7 +1,6 @@
 package com.stusocial.springboot.controller;
 
-import com.stusocial.springboot.api.Request.ReplyApi;
-import com.stusocial.springboot.entity.Comment;
+import com.stusocial.springboot.dto.ReplyDto;
 import com.stusocial.springboot.entity.Reply;
 import com.stusocial.springboot.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class ReplyController {
     }
 
     @PostMapping("/reply")
-    public Reply addReply(@RequestBody ReplyApi replyApi) {
-        return replyService.addReply(replyApi);
+    public Reply addReply(@RequestBody ReplyDto replyDto) {
+        return replyService.addReply(replyDto);
     }
 }

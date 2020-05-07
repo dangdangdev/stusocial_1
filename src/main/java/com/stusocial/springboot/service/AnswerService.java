@@ -1,6 +1,6 @@
 package com.stusocial.springboot.service;
 
-import com.stusocial.springboot.api.Request.AnswerApi;
+import com.stusocial.springboot.dto.AnswerDto;
 import com.stusocial.springboot.entity.Answer;
 import com.stusocial.springboot.entity.Question;
 import com.stusocial.springboot.entity.Student;
@@ -44,10 +44,10 @@ public class AnswerService {
     }
 
     //在QuesitonRepo加了悲观锁
-    public Answer addAnswer(AnswerApi answerApi) {
-        Question question = questionRepository.findById(answerApi.getQuestionId()).get();
-        Student student = studentRepository.findById(answerApi.getStudentId()).get();
-        Answer answer = new Answer(answerApi.getContent(), student, question);
+    public Answer addAnswer(AnswerDto answerDTO) {
+        Question question = questionRepository.findById(answerDTO.getQuestionId()).get();
+        Student student = studentRepository.findById(answerDTO.getStudentId()).get();
+        Answer answer = new Answer(answerDTO.getContent(), student, question);
         Answer answerSaved = answerReposity.save(answer);
         question.setAnswerCount(question.getAnswerCount() + 1);
         if (question.getMaxZanAnswerId() == null) {

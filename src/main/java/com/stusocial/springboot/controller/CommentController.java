@@ -1,7 +1,7 @@
 package com.stusocial.springboot.controller;
 
-import com.stusocial.springboot.api.Repose.CommentAndZanApi;
-import com.stusocial.springboot.api.Request.CommentApi;
+import com.stusocial.springboot.bo.CommentAndZanBo;
+import com.stusocial.springboot.dto.CommentDto;
 import com.stusocial.springboot.entity.Comment;
 import com.stusocial.springboot.entity.Student;
 import com.stusocial.springboot.entity.StudentZanComment;
@@ -25,16 +25,16 @@ public class CommentController {
     private StudentService studentService;
 
     @PostMapping(value = "/comment")
-    public Comment addComment(@RequestBody CommentApi commentApi) {
-        Comment comment = commentService.addComment(commentApi);
+    public Comment addComment(@RequestBody CommentDto commentDTO) {
+        Comment comment = commentService.addComment(commentDTO);
         return comment;
     }
 
     @GetMapping(value = "/comments/student/{sid}/answer/{aid}")
-    public CommentAndZanApi getCommentsByAnswer(@PathVariable("sid") Integer sid, @PathVariable("aid") Integer aid) {
+    public CommentAndZanBo getCommentsByAnswer(@PathVariable("sid") Integer sid, @PathVariable("aid") Integer aid) {
         List<Comment> comments = commentService.getCommentsByAnswer(aid);
         Student student = studentService.getStudentById(sid);
-        CommentAndZanApi commentAndZanApi = new CommentAndZanApi();
+        CommentAndZanBo commentAndZanBo = new CommentAndZanBo();
         if (comments.size() != 0) {
             boolean[] zanStatus = new boolean[comments.size()];
             Arrays.fill(zanStatus, false);
@@ -46,9 +46,9 @@ public class CommentController {
                 }
                 index++;
             }
-            commentAndZanApi.setCommentList(comments);
-            commentAndZanApi.setCommentsZanStatus(zanStatus);
+            commentAndZanBo.setCommentList(comments);
+            commentAndZanBo.setCommentsZanStatus(zanStatus);
         }
-        return commentAndZanApi;
+        return commentAndZanBo;
     }
 }

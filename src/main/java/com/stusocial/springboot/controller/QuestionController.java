@@ -1,10 +1,9 @@
 package com.stusocial.springboot.controller;
 
-import com.stusocial.springboot.api.Repose.QuestionRepApi;
+import com.stusocial.springboot.bo.QuestionRepBo;
 import com.stusocial.springboot.entity.Question;
 import com.stusocial.springboot.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,9 +32,9 @@ public class QuestionController {
     }
 
     @GetMapping(params = {"category", "page", "pagesize"})
-    public List<QuestionRepApi> getQuestionsByCategory(@RequestParam("category") String category, @RequestParam("page") Integer page, @RequestParam("pagesize") Integer pagesize) {
-        List<QuestionRepApi> questionRepApis = questionService.getQuestionsByCategory(category, page, pagesize);
-        return questionRepApis;
+    public List<QuestionRepBo> getQuestionsByCategory(@RequestParam("category") String category, @RequestParam("page") Integer page, @RequestParam("pagesize") Integer pagesize) {
+        List<QuestionRepBo> questionRepBos = questionService.getQuestionsByCategory(category, page, pagesize);
+        return questionRepBos;
     }
 
     @GetMapping(params = {"sid", "page", "pagesize"})

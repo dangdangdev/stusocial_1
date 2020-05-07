@@ -1,9 +1,9 @@
-package com.stusocial.springboot.api.Request;
+package com.stusocial.springboot.dto;
 
 import lombok.Data;
 
 @Data
-public class ReplyApi {
+public class ReplyDto {
     private String content;
     private Integer studentId;
     private Integer commentId;

@@ -1,6 +1,6 @@
 package com.stusocial.springboot.controller;
 
-import com.stusocial.springboot.api.Request.AnswerApi;
+import com.stusocial.springboot.dto.AnswerDto;
 import com.stusocial.springboot.entity.Answer;
 import com.stusocial.springboot.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class AnswerController {
     }
 
     @PostMapping(value = "/answer")
-    public Answer addAnswer(@RequestBody AnswerApi answerApi) {
-        return answerService.addAnswer(answerApi);
+    public Answer addAnswer(@RequestBody AnswerDto answerDTO) {
+        return answerService.addAnswer(answerDTO);
     }
 
     @GetMapping(value = "/answer/{id}")

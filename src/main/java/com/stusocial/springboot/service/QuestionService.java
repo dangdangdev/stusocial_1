@@ -1,6 +1,6 @@
 package com.stusocial.springboot.service;
 
-import com.stusocial.springboot.api.Repose.QuestionRepApi;
+import com.stusocial.springboot.bo.QuestionRepBo;
 import com.stusocial.springboot.entity.*;
 import com.stusocial.springboot.repository.*;
 import com.stusocial.springboot.repository.QuestionRepository;
@@ -54,7 +54,7 @@ public class QuestionService {
         return question;
     }
 
-    public List<QuestionRepApi> getQuestionsByCategory(String category, int page, int pageSize) {
+    public List<QuestionRepBo> getQuestionsByCategory(String category, int page, int pageSize) {
         Sort sort = null;
         if (category.equals("热门")) {
             sort = Sort.by(Sort.Direction.DESC, "record");
@@ -69,17 +69,17 @@ public class QuestionService {
         } else {
             questions = questionRepository.findQuestionsByCategory(category, pageable);
         }
-        List<QuestionRepApi> questionRepApis = new ArrayList<>();
+        List<QuestionRepBo> questionRepBos = new ArrayList<>();
         for (Question question : questions) {
             Integer maxZanAnswerId = question.getMaxZanAnswerId();
             Answer maxZanAnswer = null;
             if (maxZanAnswerId != null) {     //这里是由问题的，没有考虑并发，如果这时该最高赞答案被替换或被删除时正好进行到这一步，那么就会出现问题，应该要写sql，要改下，以后再看
                 maxZanAnswer = answerReposity.findById(maxZanAnswerId).get();
-                QuestionRepApi repApi = new QuestionRepApi(question, maxZanAnswer);
-                questionRepApis.add(repApi);
+                QuestionRepBo repApi = new QuestionRepBo(question, maxZanAnswer);
+                questionRepBos.add(repApi);
             }
         }
-        return questionRepApis;
+        return questionRepBos;
     }
 
     public List<Question> getQuestionsByStudent(Integer sid, Integer page, Integer pagesize) {

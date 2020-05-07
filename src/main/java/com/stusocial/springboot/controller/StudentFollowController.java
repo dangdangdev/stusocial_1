@@ -29,7 +29,8 @@ public class StudentFollowController {
 
     @GetMapping(params = {"fromStuId", "toStuId"})
     public StudentFollow getStudentFollow(@RequestParam("fromStuId") Integer fromStuId, @RequestParam("toStuId") Integer toStuId) {
-        return studentFollowService.getStudentFollow(fromStuId, toStuId);
+        StudentFollow studentFollow =  studentFollowService.getStudentFollow(fromStuId, toStuId);
+        return studentFollow;
     }
 
     @GetMapping("/fromstudent/{id}")

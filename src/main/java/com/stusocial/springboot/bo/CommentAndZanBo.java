@@ -1,4 +1,4 @@
-package com.stusocial.springboot.api.Repose;
+package com.stusocial.springboot.bo;
 
 import com.stusocial.springboot.entity.Comment;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CommentAndZanApi {
+public class CommentAndZanBo {
     private List<Comment> commentList;
     private boolean[] commentsZanStatus;
 }

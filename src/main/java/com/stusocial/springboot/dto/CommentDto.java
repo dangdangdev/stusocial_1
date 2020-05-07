@@ -1,15 +1,15 @@
-package com.stusocial.springboot.api.Request;
+package com.stusocial.springboot.dto;
 
 import lombok.Data;
 
 @Data
-public class CommentApi {
+public class CommentDto {
     private String content;
     private Integer studentId;
     private Integer answerId;
 
 
-    public CommentApi(String content, Integer studentId, Integer answerId) {
+    public CommentDto(String content, Integer studentId, Integer answerId) {
         this.studentId = studentId;
         this.answerId = answerId;
         this.content = content;
